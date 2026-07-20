@@ -27,10 +27,26 @@ CREATE TABLE IF NOT EXISTS Customers(
     driving_license TEXT NOT NULL
 )
 """)
+# Create Rentals table
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS Rentals(
+    rental_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    customer_id INTEGER NOT NULL,
+    vehicle_id INTEGER NOT NULL,
+    rental_date TEXT NOT NULL,
+    return_date TEXT,
+    days_rented INTEGER NOT NULL,
+    total_amount REAL,
+    FOREIGN KEY(customer_id) REFERENCES Customers(customer_id),
+    FOREIGN KEY(vehicle_id) REFERENCES Vehicles(vehicle_id)
+)
+""")
 # Save changes
 connection.commit()
 
-print("Vehicles and Customers tables created successfully!")
+print("Vehicles, Customers and Rentals tables created successfully!")
 
 # Close database
 connection.close()
+
